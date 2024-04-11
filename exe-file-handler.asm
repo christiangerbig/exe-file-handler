@@ -26,10 +26,10 @@ load_demo_error
   CNOP 0,4
 start_demo
   move.l  demofile_seglist(pc),a3 ;Pointer to seglist structure in a3 is not mandatory, but some demos expect it
-  add.l   a3,a3              ;BCPL pointer
+  add.l   a3,a3              ;Get BCPL pointer
   add.l   a3,a3
 ; ** Not mandatory. Some demos expect it. Oherwise -> guru meditation
-  lea     shell_cmd_line(pc),a0 ;Pointer to empty command line-String
+  lea     shell_cmd_line(pc),a0 ;Pointer to empty command line string
   moveq   #1,d0              ;Length = 1 character (line feed)
 ; **
   jmp     4(a3)              ;Execute demo
