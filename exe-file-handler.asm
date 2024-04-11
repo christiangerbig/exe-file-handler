@@ -9,6 +9,12 @@ load_demo
   CALLDOS LoadSeg
   move.l  d0,demofile_seglist
   beq.s   load_demo_error
+check_os_version
+	move.l	ExecBase.w,a6
+	cmp	    #37,LIB_VERSION(a6)
+	blo.s	  no_cache
+  CALLEXEC CacheClearU
+no_cache
   moveq   #0,d0
   rts
   CNOP 0,4
