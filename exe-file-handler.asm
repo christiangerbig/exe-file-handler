@@ -11,7 +11,7 @@ load_demo
   beq.s   load_demo_error
 check_os_version
   move.l  ExecBase.w,a6
-  cmp.w   #37,LIB_VERSION(a6) ;OS2.0 or better
+  cmp.w   #37,LIB_VERSION(a6) ; OS2.0 or better
   blo.s   no_cache
   CALLEXEC CacheClearU
 no_cache
@@ -25,7 +25,7 @@ load_demo_error
 
   CNOP 0,4
 start_demo
-  move.l  demofile_seglist(pc),a3 ;Pointer to seglist structure
+  move.l  demofile_seglist(pc),a3 ;Pointer to seglist structure in a3 is not mandatory, but some demos expect it
   add.l   a3,a3              ;BCPL pointer
   add.l   a3,a3
 ; ** Not mandatory. Some demos expect it. Oherwise -> guru meditation
