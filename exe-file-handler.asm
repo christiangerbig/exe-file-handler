@@ -6,7 +6,7 @@ LIB_VERSION                     EQU 20	;Offset in library base
 _LVOCacheClearU			EQU -636
 OS2_VERSION                     EQU 37	;OS2.04
 
-FirstCode			EQU 4	;Offset in Segment List
+FirstCode			EQU 4	;Offset in SegList structure
 _LVOLoadSeg			EQU -150
 _LVOUnloadSeg			EQU -156
 
@@ -35,11 +35,11 @@ check_os_version
 	jsr	_LVOCacheClearU(a6)	;Mandatory on 680x0 systems
 
 load_demo
-	move.l	demofile_seglist(pc),a3 ;Pointer to seglist structure in a3 is not mandatory, but some demos expect it
+	move.l	demofile_seglist(pc),a3 ;Pointer to SegList structure in a3 is not mandatory, but some demos expect it
 	add.l	a3,a3			;Get BCPL pointer
 	add.l	a3,a3
 
-; ** Some demos expect these values in d0/a0 otherwiese guru meditation **
+; ** Some demos expect these values in d0/a0 or there will be a guru meditation **
 	lea	shell_command_line(pc),a0 ;Pointer to line feed command line string
 	moveq	#shell_command_line_end-shell_command_line,d0 ;Length = 1 character
 
