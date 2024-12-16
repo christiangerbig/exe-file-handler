@@ -1,6 +1,7 @@
 ; Manually load/run/unload a demo as an exe file with the dos.library
-; Important: The dos.library is expected as opened and its base is already stored
-;	     No cleanup code for the dos.library included
+; Important:
+; The dos.library is expected as opened and its base is already stored
+; No cleanup code for the dos.library included
 
 exec_base			EQU $0004
 LIB_VERSION                     EQU 20
@@ -17,8 +18,8 @@ RETURN_FAIL			EQU 20
 ASCII_LINE_FEED			EQU 10
 
 
-; other code
-
+; Input
+; Result
 	CNOP 0,4
 load_demo
 	lea     demofile_path(pc),a0
@@ -30,6 +31,7 @@ load_demo
 	bne.s   run_demo
 	moveq	#RETURN_FAIL,d0
 	bra.s	exit
+
 	CNOP 0,4
 run_demo
 
@@ -43,6 +45,7 @@ run_demo
  	movem.l d2-d7/a2-a6,-(a7)
 	jsr	FirstCode(a3)		; execute demo
         movem.l (a7)+,d2-d7/a2-a6
+
 	move.l	demofile_seglist(pc),d1
 	move.l	dos_base(pc),a6
 	jsr	_LVOUnLoadSeg(a6)
@@ -51,7 +54,6 @@ exit
 	rts
 
 
-; ** Variables **
 	CNOP 0,4
 dos_base			DC.L 0
 demofile_seglist		DC.L 0
@@ -60,5 +62,6 @@ demofile_path			DC.B "exampledemo.exe",0
 	EVEN
 shell_nop_command_line		DC.B ASCII_LINE_FEED
 shell_nop_command_line_end	DC.B 0
+	EVEN
 
 	END
